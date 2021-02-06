@@ -3,12 +3,13 @@
     <v-container>
       <v-row>
         <v-col col="12" class="justify-center d-flex">
-          <ImageUpload @imagePath="setImagePath" />
+          <ImageUpload @imagePath="setImagePath" @loading="loadingImagePreview" />
         </v-col>
       </v-row>
       <v-row>
         <v-col col="12">
           <ImagePreview
+            :loading="loading"
             :image-path="imagePath"
             :hue-rotate="hueRotate"
             :brightness="brightness"
@@ -71,6 +72,7 @@ export default Vue.extend({
     opacity: 100,
     saturate: 100,
     sepia: 0,
+    loading: false,
     imagePath:
       'https://i.picsum.photos/id/894/536/354.jpg?hmac=nPb0JmJGnGKCyKy2womYYaVlNlraeMW2gbX8vdO-Lr4',
   }),
@@ -79,6 +81,10 @@ export default Vue.extend({
     setImagePath(image64: string) {
       console.log(image64);
       this.imagePath = image64;
+    },
+
+    loadingImagePreview(isLoading: boolean) {
+      this.loading = isLoading;
     },
 
     resetAll() {

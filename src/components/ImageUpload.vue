@@ -35,11 +35,16 @@ export default Vue.extend({
 
   watch: {
     async imageFile(payload) {
+      this.$emit('loading', true);
       try {
         const imageBase64 = await this.imageToBase64(payload[0]);
         this.$emit('imagePath', imageBase64);
       } catch (e) {
         console.error(e);
+      } finally {
+        setTimeout(() => {
+          this.$emit('loading', false);
+        }, 500);
       }
     },
   },
