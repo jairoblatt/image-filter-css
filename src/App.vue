@@ -34,7 +34,12 @@
               <Slide title="Saturate" min="0" max="100" v-model="saturate" />
               <Slide title="Sepia" min="0" max="100" v-model="sepia" />
               <v-card-text>
-                <v-btn depressed block color="blue" class="white--text" @click="resetAll"
+                <v-btn
+                  depressed
+                  block
+                  color="deep-purple accent-4"
+                  class="white--text"
+                  @click="resetAll"
                   >Reset all</v-btn
                 >
               </v-card-text>
