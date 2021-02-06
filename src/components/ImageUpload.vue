@@ -1,5 +1,5 @@
 <template>
-  <v-card min-width="500px">
+  <v-card outlined min-width="500px">
     <v-card-actions>
       <v-file-input
         v-model="imageFile"
