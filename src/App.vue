@@ -9,7 +9,7 @@
       <v-row>
         <v-col col="12">
           <ImagePreview
-            :loading="loading"
+            ref="imagePreview"
             :image-path="imagePath"
             :hue-rotate="hueRotate"
             :brightness="brightness"
@@ -72,23 +72,21 @@ export default Vue.extend({
     opacity: 100,
     saturate: 100,
     sepia: 0,
-    loading: false,
     imagePath:
       'https://i.picsum.photos/id/894/536/354.jpg?hmac=nPb0JmJGnGKCyKy2womYYaVlNlraeMW2gbX8vdO-Lr4',
   }),
 
   methods: {
     setImagePath(image64: string) {
-      console.log(image64);
       this.imagePath = image64;
-    },
-
-    loadingImagePreview(isLoading: boolean) {
-      this.loading = isLoading;
     },
 
     resetAll() {
       Object.assign(this.$data, (this.$options as any).data());
+    },
+
+    loadingImagePreview() {
+      (this.$refs.imagePreview as Vue & { loadingToggle: () => void }).loadingToggle();
     },
   },
 });

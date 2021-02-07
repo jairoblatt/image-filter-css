@@ -2,19 +2,21 @@
   <v-col col="12">
     <v-card outlined class="d-flex justify-center align-center py-2 flex-column">
       <v-card-actions>
-        <v-progress-circular
-          v-if="loading"
-          :size="50"
-          color="primary"
-          indeterminate
-        ></v-progress-circular>
-        <img
-          v-else
-          class="preview-image"
-          :src="imagePath"
-          :style="{ filter: filterStyle }"
-          alt="Preview Image"
-        />
+        <template v-if="loading">
+          <v-progress-circular
+            :size="50"
+            color="deep-purple accent-4"
+            indeterminate
+          ></v-progress-circular>
+        </template>
+        <template v-else>
+          <img
+            class="preview-image"
+            :src="imagePath"
+            :style="{ filter: filterStyle }"
+            alt="Preview Image"
+          />
+        </template>
       </v-card-actions>
       <v-card-actions>
         <v-btn @click="downloadImage" depressed color="deep-purple accent-4" class="white--text"
@@ -32,7 +34,37 @@
 <script lang="ts">
 import Vue from 'vue';
 
-export default Vue.extend({
+interface Data {
+  loading: boolean;
+}
+
+interface Props {
+  imagePath: string;
+  hueRotate: number;
+  blur: number;
+  brightness: number;
+  contrast: number;
+  grayscale: number;
+  invert: number;
+  opacity: number;
+  saturate: number;
+  sepia: number;
+}
+
+interface Computed {
+  filterStyle: string;
+}
+
+interface Methods {
+  downloadImage: () => void;
+  loadingToggle: () => void;
+}
+
+export default Vue.extend<Data, Methods, Computed, Props>({
+  data: () => ({
+    loading: false,
+  }),
+
   props: {
     imagePath: String,
     hueRotate: Number,
@@ -44,30 +76,32 @@ export default Vue.extend({
     opacity: Number,
     saturate: Number,
     sepia: Number,
-    loading: Boolean,
   },
 
   computed: {
     filterStyle() {
-      return `${this.hueRotate ? `hue-rotate(${this.hueRotate}deg)` : ''}
-              ${this.blur ? `blur(${this.blur}px)` : ''}
+      return `${this.blur ? `blur(${this.blur}px)` : ''}
+              ${this.invert ? `invert(${this.invert}%)` : ''}
+              ${this.sepia ? `sepia(${this.sepia}%)` : ''}
+              ${this.hueRotate ? `hue-rotate(${this.hueRotate}deg)` : ''}
+              ${this.grayscale ? `grayscale(${this.grayscale}%)` : ''}
               ${this.brightness !== 100 ? `brightness(${this.brightness}%)` : ''}
               ${this.contrast !== 100 ? `contrast(${this.contrast}%)` : ''}
-              ${this.grayscale ? `grayscale(${this.grayscale}%)` : ''}
-              ${this.invert ? `invert(${this.invert}%)` : ''}
               ${this.opacity !== 100 ? `opacity(${this.opacity}%)` : ''}
-              ${this.saturate !== 100 ? `saturate(${this.saturate}%)` : ''}
-              ${this.sepia ? `sepia(${this.sepia}%)` : ''}`;
+              ${this.saturate !== 100 ? `saturate(${this.saturate}%)` : ''}`;
     },
   },
 
   methods: {
-    /*eslint-disable */
     downloadImage() {
       const imageElement = document.createElement('a');
       imageElement.href = this.imagePath;
       imageElement.download = 'image.png';
       imageElement.click();
+    },
+
+    loadingToggle() {
+      this.loading = !this.loading;
     },
   },
 });
