@@ -72,8 +72,7 @@ export default Vue.extend({
     opacity: 100,
     saturate: 100,
     sepia: 0,
-    imagePath:
-      'https://i.picsum.photos/id/894/536/354.jpg?hmac=nPb0JmJGnGKCyKy2womYYaVlNlraeMW2gbX8vdO-Lr4',
+    imagePath: '',
   }),
 
   methods: {
