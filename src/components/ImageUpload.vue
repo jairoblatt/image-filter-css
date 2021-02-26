@@ -58,31 +58,6 @@ export default Vue.extend({
         oFReader.onerror = () => reject;
       });
     },
-
-    // async createImageCanvas(imageBase64: string): Promise<HTMLCanvasElement> {
-    //   const canvasElement = document.createElement('canvas');
-    //   const imageElement = document.createElement('img');
-
-    //   imageElement.src = imageBase64;
-    //   canvasElement.width = imageElement.width;
-    //   canvasElement.height = imageElement.height;
-
-    //   canvasElement
-    //     .getContext('2d')
-    //     ?.drawImage(imageElement, 0, 0, canvasElement.width, canvasElement.height);
-    //   console.log(canvasElement);
-    //   return canvasElement;
-    // },
-
-    // scaleCanvasSize(canvas: HTMLCanvasElement, scale: number): HTMLCanvasElement {
-    //   const scaledCanvas = document.createElement('canvas');
-    //   scaledCanvas.height = canvas.height * scale;
-    //   scaledCanvas.width = canvas.width * scale;
-    //   scaledCanvas
-    //     .getContext('2d')
-    //     ?.drawImage(canvas, 0, 0, scaledCanvas.width, scaledCanvas.height);
-    //   return scaledCanvas;
-    // },
   },
 });
 </script>
